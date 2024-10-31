@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -12,6 +14,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -26,6 +29,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${getApiKey()}\"")
     }
 
     buildTypes {
@@ -49,6 +54,12 @@ android {
     }
 }
 
+fun getApiKey(): String {
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+    return properties.getProperty("EXCHANGE_RATE_API_KEY")
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -62,11 +73,7 @@ dependencies {
     implementation(libs.mediation.test.suite)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.test.junit4.android)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
