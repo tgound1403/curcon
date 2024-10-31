@@ -124,8 +124,8 @@ fun HomeConverter(
                         .padding(vertical = 8.dp, horizontal = 24.dp)
                         .rotate(90f)
                         .clickable {
-                            animateSwap = !animateSwap
                             onSwap.invoke()
+                            animateSwap = !animateSwap
                         },
                     verticalArrangement = Arrangement.Center
                 ) {

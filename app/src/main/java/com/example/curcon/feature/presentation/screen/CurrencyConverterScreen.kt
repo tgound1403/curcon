@@ -89,9 +89,6 @@ fun CurrencyConverterScreen(viewModel: MainViewModel) {
                         },
                         convertedAmount = convertedAmount,
                         onSwap = {
-                            val tempCurr = fromCurrency
-                            fromCurrency = toCurrency
-                            toCurrency = tempCurr
                             amount = 0.0
                             viewModel.clearModelData()
                         }
